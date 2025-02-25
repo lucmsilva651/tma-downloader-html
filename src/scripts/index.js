@@ -5,6 +5,11 @@ function hasNumber(string) {
   return /\d/.test(string);
 }
 
+function invalidID() {
+  alert("Invalid URL or ID!");
+  return;
+}
+
 function downloadModule(url) {
   if (url.includes('modarchive.org')) {
     const id = url.match(/\d+$/);
@@ -13,11 +18,14 @@ function downloadModule(url) {
   } else {
     if (hasNumber(url)) {
       url = Number(url);
-      window.open(`https://api.modarchive.org/downloads.php?moduleid=${url}`);
-      return;
+      if (!isNaN(url)) {
+        window.open(`https://api.modarchive.org/downloads.php?moduleid=${url}`);
+        return;
+      } else {
+        invalidID();
+      }
     } else {
-      alert("Invalid URL or ID!");
-      return;
+      invalidID();
     }
   };
 }
